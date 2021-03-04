@@ -33,7 +33,7 @@ parser.add_argument('--attn_len', default=5, type=int)
 parser.add_argument('--hidden_size', default=448, type=int)
 parser.add_argument('--ck_name', default='se_fbank_test.pt')
 
-parser.add_argument('--njobs', default=64, type=int,
+parser.add_argument('--njobs', default=96, type=int,
                     help='Number of threads for dataloader/decoding.', required=False)
 parser.add_argument('--config', type=str, help='Path to experiment config.', default="config/asr_example.yaml")
 parser.add_argument('--no-pin', action='store_true',

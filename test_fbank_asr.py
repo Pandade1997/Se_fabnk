@@ -24,7 +24,7 @@ parser.add_argument('--stacked_encoder', default=True, type=bool)
 parser.add_argument('--attn_len', default=5, type=int)
 parser.add_argument('--hidden_size', default=448, type=int)
 parser.add_argument('--ck_dir', default='ckpt_dir', help='ck path')
-parser.add_argument('--ck_name', help='ck file', default='se_fbank_asr_test2.pt')
+parser.add_argument('--ck_name', help='ck file', default='se_fbank_test.pt')
 parser.add_argument('--test_set', help='test', default='test')
 parser.add_argument('--attn_use', default=True, type=bool)
 
@@ -37,7 +37,7 @@ parser.add_argument('--cpu', action='store_true', help='Disable GPU training.')
 parser.add_argument('--no-msg', action='store_true', help='Hide all messages.')
 
 parser.add_argument('--out_path',
-                    default='/data01/AuFast/Pan_dataset/SE_asr/test2/se_fbank/gen_test_mat/',
+                    default='/data01/AuFast/Pan_dataset/SE_asr/test/se_fbank/libri/gen_test_mat/',
                     type=str)
 
 args = parser.parse_args()

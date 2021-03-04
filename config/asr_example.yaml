@@ -11,7 +11,7 @@ data:
     dev_split: ['validset_clean']
     test_split: ['testset_clean']
     bucketing: True                       # Enable/Disable bucketing
-    batch_size: 64
+    batch_size: 96
   audio:                                  # Attributes of audio feature
     feat_type: 'fbank'
     feat_dim:  40
@@ -35,7 +35,7 @@ data_noisy:
     dev_split: ['validset_noisy']
     test_split: ['testset_noisy']
     bucketing: True                       # Enable/Disable bucketing
-    batch_size: 64
+    batch_size: 96
   audio:                                  # Attributes of audio feature
     feat_type: 'fbank'
     feat_dim:  40
