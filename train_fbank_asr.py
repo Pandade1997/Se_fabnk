@@ -1,7 +1,5 @@
 # --batch_size=64 --dropout_p=0.2 --attn_use=True --stacked_encoder=True --attn_len=5 --hidden_size=448 --num_epochs=61
 import os
-#
-# os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 import argparse
 import torch
 import torch.optim as optim
@@ -33,9 +31,9 @@ parser.add_argument('--attn_use', default=True, type=bool)
 parser.add_argument('--stacked_encoder', default=True, type=bool)
 parser.add_argument('--attn_len', default=5, type=int)
 parser.add_argument('--hidden_size', default=448, type=int)
-parser.add_argument('--ck_name', default='se_fbank_asr_test2.pt')
+parser.add_argument('--ck_name', default='se_fbank_test.pt')
 
-parser.add_argument('--njobs', default=8, type=int,
+parser.add_argument('--njobs', default=64, type=int,
                     help='Number of threads for dataloader/decoding.', required=False)
 parser.add_argument('--config', type=str, help='Path to experiment config.', default="config/asr_example.yaml")
 parser.add_argument('--no-pin', action='store_true',

@@ -6,12 +6,12 @@ data:
     #    dev_split: ['dev-clean']              # Name of data splits to be used as validation set
     #    test_split: ['test-clean']
 
-    path: '/data01/AuFast/Pan_dataset/SE_asr/test2/se_fbank'          # Path to raw LibriSpeech dataset
-    #    train_split: ['trainset_clean'] # Name of data splits to be used as training set
+    path: '/data01/AuFast/Pan_dataset/SE_asr/test/se_fbank/libri'          # Path to raw LibriSpeech dataset
+    train_split: ['trainset_clean'] # Name of data splits to be used as training set
     dev_split: ['validset_clean']
     test_split: ['testset_clean']
     bucketing: True                       # Enable/Disable bucketing
-    batch_size: 2
+    batch_size: 64
   audio:                                  # Attributes of audio feature
     feat_type: 'fbank'
     feat_dim:  40
@@ -27,15 +27,15 @@ data:
 data_noisy:
   corpus:
     name: 'Librispeech'                   # Specify corpus
-    path: '/data01/AuFast/Pan_dataset/SE_asr/test2/se_fbank'          # Path to raw LibriSpeech dataset
+    path: '/data01/AuFast/Pan_dataset/SE_asr/test/se_fbank/libri'          # Path to raw LibriSpeech dataset
     #    train_split: ['train-noisy-100'] # Name of data splits to be used as training set
     #    dev_split: ['dev-noisy']              # Name of data splits to be used as validation set
     #    test_split: ['test-noisy']
-#    train_split: ['trainset_noisy'] # Name of data splits to be used as training set
+    train_split: ['trainset_noisy'] # Name of data splits to be used as training set
     dev_split: ['validset_noisy']
     test_split: ['testset_noisy']
     bucketing: True                       # Enable/Disable bucketing
-    batch_size: 2
+    batch_size: 64
   audio:                                  # Attributes of audio feature
     feat_type: 'fbank'
     feat_dim:  40
