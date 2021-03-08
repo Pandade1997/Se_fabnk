@@ -32,7 +32,7 @@ parser.add_argument('--attn_len', default=5, type=int)
 parser.add_argument('--hidden_size', default=448, type=int)
 parser.add_argument('--ck_name', default='final.pt')
 
-parser.add_argument('--njobs', default=96, type=int,
+parser.add_argument('--njobs', default=8, type=int,
                     help='Number of threads for dataloader/decoding.', required=False)
 parser.add_argument('--config', type=str, help='Path to experiment config.', default="config/asr_example.yaml")
 parser.add_argument('--no-pin', action='store_true',
@@ -162,7 +162,7 @@ def main():
         net.eval()
         with torch.no_grad():
             for input in tqdm(dv_set):
-                dv_noisy_set, feat_dim, vocab_size, tokenizer = load_noisy_dataset("dev", input[0], args.njobs,
+                dv_noisy_set, feat_dim = load_noisy_dataset("dev", input[0], args.njobs,
                                                                                    args.gpu,
                                                                                    args.pin_memory,
                                                                                    config['hparas']['curriculum'] > 0,
