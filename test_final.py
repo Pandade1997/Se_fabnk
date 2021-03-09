@@ -38,7 +38,7 @@ parser.add_argument('--cpu', action='store_true', help='Disable GPU training.')
 parser.add_argument('--no-msg', action='store_true', help='Hide all messages.')
 
 parser.add_argument('--out_path',
-                    default='/data01/AuFast/Pan_dataset/SE_asr/test/se_fbank/libri/gen_test_mat/',
+                    default='/data01/AuFast/Pan_dataset/SE_asr/finaltest/gen_mat/test/',
                     type=str)
 
 args = parser.parse_args()
