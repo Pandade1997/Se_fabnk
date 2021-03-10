@@ -30,9 +30,9 @@ parser.add_argument('--attn_use', default=True, type=bool)
 parser.add_argument('--stacked_encoder', default=True, type=bool)
 parser.add_argument('--attn_len', default=5, type=int)
 parser.add_argument('--hidden_size', default=448, type=int)
-parser.add_argument('--ck_name', default='final.pt')
+parser.add_argument('--ck_name', default='final_batch.pt')
 
-parser.add_argument('--njobs', default=8, type=int,
+parser.add_argument('--njobs', default=16, type=int,
                     help='Number of threads for dataloader/decoding.', required=False)
 parser.add_argument('--config', type=str, help='Path to experiment config.', default="config/asr_example.yaml")
 parser.add_argument('--no-pin', action='store_true',
@@ -47,6 +47,15 @@ setattr(args, 'verbose', not args.no_msg)
 config = yaml.load(open(args.config, 'r'), Loader=yaml.FullLoader)
 
 num_fbank = 40
+
+
+def fetch_data(data):
+    ''' Move data to device and compute text seq. length'''
+    name, feat, feat_len = data
+    feat = feat.to(torch.device('cuda'))
+    feat_len = feat_len.to(torch.device('cuda'))
+
+    return feat, feat_len
 
 
 def verbose(msg):
@@ -119,8 +128,8 @@ def main():
                                                         config['hparas']['curriculum'] > 0,
                                                         **config['data_noisy'])
             for input_noisy in tr_noisy_set:
-                train_clean_feat = input[1].to(device='cuda')
-                train_noisy_feat = input_noisy[1].to(device='cuda')
+                train_clean_feat, feat_len = fetch_data(input)
+                train_noisy_feat, feat_len = fetch_data(input_noisy)
 
                 iteration += 1
 
@@ -163,10 +172,10 @@ def main():
         with torch.no_grad():
             for input in tqdm(dv_set):
                 dv_noisy_set, feat_dim = load_noisy_dataset("dev", input[0], args.njobs,
-                                                                                   args.gpu,
-                                                                                   args.pin_memory,
-                                                                                   config['hparas']['curriculum'] > 0,
-                                                                                   **config['data_noisy'])
+                                                            args.gpu,
+                                                            args.pin_memory,
+                                                            config['hparas']['curriculum'] > 0,
+                                                            **config['data_noisy'])
                 for input_noisy in dv_noisy_set:
                     test_clean_feat = input[1].to(device='cuda')
                     test_noisy_feat = input_noisy[1].to(device='cuda')
