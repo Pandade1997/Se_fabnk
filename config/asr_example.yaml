@@ -6,11 +6,11 @@ data:
     #    dev_split: ['dev-clean']              # Name of data splits to be used as validation set
     #    test_split: ['test-clean']
 
-    path: '/data01/AuFast/Pan_dataset/SE_asr/finaltest/wsj0'          # Path to raw LibriSpeech dataset
-#    path: '/data01/AuFast/Pan_dataset/SE_asr/finaltest/gen_flac'
-    train_split: ['trainset_clean'] # Name of data splits to be used as training set
+#    path: '/data01/AuFast/Pan_dataset/SE_asr/finaltest/wsj0'          # Path to raw LibriSpeech dataset
+    path: '/data01/AuFast/Pan_dataset/SE_asr/finaltest/gen_flac'
+#    train_split: ['trainset_clean'] # Name of data splits to be used as training set
     dev_split: ['validset_clean']
-#    test_split: ['testset_clean']
+    test_split: ['trainset_clean']
     bucketing: True                       # Enable/Disable bucketing
     batch_size: 16
   audio:                                  # Attributes of audio feature
@@ -28,15 +28,15 @@ data:
 data_noisy:
   corpus:
     name: 'Librispeech'                   # Specify corpus
-    path: '/data01/AuFast/Pan_dataset/SE_asr/finaltest/wsj0'          # Path to raw LibriSpeech dataset
-#    path: '/data01/AuFast/Pan_dataset/SE_asr/finaltest/gen_flac'
+#    path: '/data01/AuFast/Pan_dataset/SE_asr/finaltest/wsj0'          # Path to raw LibriSpeech dataset
+    path: '/data01/AuFast/Pan_dataset/SE_asr/finaltest/gen_flac'
     #    train_split: ['libri_train'] # Name of data splits to be used as training set
     #    dev_split: ['libri_valid']              # Name of data splits to be used as validation set
     #    test_split: ['libri_test']
-    train_split: ['trainset_noisy'] # Name of data splits to be used as training set
-    dev_split: ['validset_noisy']
-#    dev_split: ['libri_valid']
-#    test_split: ['libri_test']
+#    train_split: ['trainset_noisy'] # Name of data splits to be used as training set
+#    dev_split: ['validset_noisy']
+    dev_split: ['libri_valid']
+    test_split: ['libri_train']
     bucketing: True                       # Enable/Disable bucketing
     batch_size: 16
   audio:                                  # Attributes of audio feature

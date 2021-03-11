@@ -25,7 +25,7 @@ parser.add_argument('--stacked_encoder', default=True, type=bool)
 parser.add_argument('--attn_len', default=5, type=int)
 parser.add_argument('--hidden_size', default=448, type=int)
 parser.add_argument('--ck_dir', default='ckpt_dir', help='ck path')
-parser.add_argument('--ck_name', help='ck file', default='final.pt')
+parser.add_argument('--ck_name', help='ck file', default='final_batch.pt')
 parser.add_argument('--test_set', help='test', default='test')
 parser.add_argument('--attn_use', default=True, type=bool)
 
@@ -38,7 +38,7 @@ parser.add_argument('--cpu', action='store_true', help='Disable GPU training.')
 parser.add_argument('--no-msg', action='store_true', help='Hide all messages.')
 
 parser.add_argument('--out_path',
-                    default='/data01/AuFast/Pan_dataset/SE_asr/finaltest/gen_mat/test_mat/',
+                    default='/data01/AuFast/Pan_dataset/SE_asr/finaltest/gen_mat_batch/train_mat/',
                     type=str)
 
 args = parser.parse_args()
@@ -56,6 +56,15 @@ def verbose(msg):
                 print('[INFO]', m.ljust(100))
         else:
             print('[INFO]', msg.ljust(100))
+
+
+def fetch_data(data):
+    ''' Move data to device and compute text seq. length'''
+    name, feat, feat_len = data
+    feat = feat.to(torch.device('cuda'))
+    feat_len = feat_len.to(torch.device('cuda'))
+
+    return feat, feat_len
 
 
 def main():
@@ -102,13 +111,14 @@ def main():
         name_sum = 0
         for input in tqdm(tt_set):
             tt_noisy_set, feat_dim = load_noisy_dataset("test", input[0], args.njobs,
-                                                                               args.gpu,
-                                                                               args.pin_memory,
-                                                                               config['hparas']['curriculum'] > 0,
-                                                                               **config['data_noisy'])
+                                                        args.gpu,
+                                                        args.pin_memory,
+                                                        config['hparas']['curriculum'] > 0,
+                                                        **config['data_noisy'])
             for input_noisy in tt_noisy_set:
-                # test_clean_feat = input[1].to(device='cuda')
-                test_noisy_feat = input_noisy[1].to(device='cuda')
+                test_noisy_feat, feat_len = fetch_data(input_noisy)
+
+                # test_noisy_feat = input_noisy[1].to(device='cuda')
                 # feed data
                 test_mixed_feat, attn_weight = net(test_noisy_feat)
 

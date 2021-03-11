@@ -23,7 +23,7 @@ class LibriDataset(Dataset):
         # List all wave files
         file_list = []
         for s in split:
-            split_list = list(Path(join(path, s)).rglob("*.wav"))
+            split_list = list(Path(join(path, s)).rglob("*.flac"))
             assert len(split_list) > 0, "No data found @ {}".format(join(path, s))
             file_list += split_list
 
@@ -60,12 +60,12 @@ class LibriNoisyDataset(Dataset):
             path = path + "/validset_noisy"
         elif job == 'test':
             # path = path + "/test-noisy/"
-            path = path + "/libri_test"
+            path = path + "/libri_train"
 
         # List all wave files
         file_list = []
         for s in split:
-            split_list = path + "/" + s + ".wav"
+            split_list = path + "/" + s + ".flac"
             file_list.append(split_list)
 
         # Sort dataset by text length
